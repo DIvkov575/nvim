@@ -1,3 +1,2 @@
--- custom plugs
--- See the kickstart.nvim README for more information
+-- custom plugs kickstart.nvim README 
 return {}
