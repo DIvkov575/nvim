@@ -1,6 +1,5 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system {
@@ -13,11 +12,9 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
 require('lazy').setup({
-  -- Detect tabstop and shiftwidth automatically
+  -- Detect tabstop + shiftwidth 
   'tpope/vim-sleuth',
-
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -27,7 +24,6 @@ require('lazy').setup({
       'folke/neodev.nvim',
     },
   },
-
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -37,13 +33,12 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
-
   -- show keybindings?
   { 'folke/which-key.nvim', opts = {} },
   {
     'lewis6991/gitsigns.nvim',
     opts = {
-      -- See `:help gitsigns.txt`
+      -- `:help gitsigns.txt`
       signs = {
         add = { text = '+' },
         change = { text = '~' },
@@ -69,7 +64,7 @@ require('lazy').setup({
 
   {
     'nvim-lualine/lualine.nvim',
-    -- See `:help lualine.txt`
+    -- `:help lualine.txt`
     opts = {
       options = {
         icons_enabled = false,
@@ -83,7 +78,6 @@ require('lazy').setup({
   {
     -- indentation guides 
     'lukas-reineke/indent-blankline.nvim',
-    -- See `:help indent_blankline.txt`
     opts = {
       char = '┊',
       show_trailing_blankline_indent = false,
@@ -100,7 +94,7 @@ require('lazy').setup({
   },
 
   {
-    -- Highlight, edit, and navigate code
+    -- Highlight, edit, navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
@@ -147,14 +141,13 @@ require('telescope').setup {
   },
 }
 
--- Enable telescope fzf native, if installed
+-- Enable telescop
 pcall(require('telescope').load_extension, 'fzf')
 
--- See `:help telescope.builtin`
+-- `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
-  -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     winblend = 10,
     previewer = false,
@@ -185,7 +178,7 @@ require('nvim-treesitter.configs').setup {
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
       keymaps = {
         ['aa'] = '@parameter.outer',
         ['ia'] = '@parameter.inner',
@@ -197,7 +190,7 @@ require('nvim-treesitter.configs').setup {
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true,
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
@@ -252,7 +245,7 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
 
-  -- See `:help K` for why this keymap
+  -- `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
   nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
@@ -264,7 +257,7 @@ local on_attach = function(_, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  -- Create a command `:Format` local to the LSP buffer
+  -- Create `:Format` local to the LSP buffer
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
@@ -305,7 +298,6 @@ mason_lspconfig.setup_handlers {
   end
 }
 
--- config nvim-cmp
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 require('luasnip.loaders.from_vscode').lazy_load()
