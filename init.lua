@@ -1,3 +1,5 @@
+-- set notermguicolors
+-- vim.o.termguicolors = false
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -58,15 +60,6 @@ require('lazy').setup({
       end,
     },
   },
-
-  {
-    'navarasu/onedark.nvim',
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'onedark'
-    end,
-  },
-
   {
     'nvim-lualine/lualine.nvim',
     -- See `:help lualine.txt`
@@ -80,15 +73,6 @@ require('lazy').setup({
     },
   },
 
-  {
-    -- indentation guides 
-    'lukas-reineke/indent-blankline.nvim',
-    -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
-  },
   { 'numToStr/Comment.nvim', opts = {} },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   {
@@ -121,7 +105,7 @@ vim.wo.signcolumn = 'yes'
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,noselect'
-vim.o.termguicolors = true
+vim.o.termguicolors = false
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -300,7 +284,7 @@ mason_lspconfig.setup_handlers {
       capabilities = capabilities,
       on_attach = on_attach,
       settings = servers[server_name],
-      filetypes = servers[server_name].filetypes,
+      -- filetypes = servers[server_name].filetypes,
     }
   end
 }
