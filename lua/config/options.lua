@@ -1,0 +1,14 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
+
+-- Uncomment these if you want Oil to fully replace netrw.
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
