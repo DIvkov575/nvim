@@ -67,10 +67,31 @@ return {
           offsets = { { filetype = "NvimTree", text = "Explorer", padding = 1 } },
           show_close_icon = false,
           show_buffer_close_icons = false,
+          custom_filter = function(buf)
+            local bt = vim.bo[buf].buftype
+            return bt == "" or bt == "acwrite"
+          end,
         },
       })
-      vim.keymap.set("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-      vim.keymap.set("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
+
+      local function cycle(direction)
+        local bufs = require("bufferline").get_elements().elements
+        if #bufs == 0 then return end
+        local current = vim.api.nvim_get_current_buf()
+        local idx
+        for i, b in ipairs(bufs) do
+          if b.id == current then idx = i; break end
+        end
+        if not idx then
+          vim.api.nvim_set_current_buf(bufs[1].id)
+          return
+        end
+        local target = ((idx - 1 + direction) % #bufs) + 1
+        vim.api.nvim_set_current_buf(bufs[target].id)
+      end
+
+      vim.keymap.set("n", "]b", function() cycle(1) end, { desc = "Next buffer" })
+      vim.keymap.set("n", "[b", function() cycle(-1) end, { desc = "Prev buffer" })
       vim.keymap.set("n", "<leader>bd", "<cmd>bdelete<cr>", { desc = "Delete buffer" })
     end,
   },
