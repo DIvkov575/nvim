@@ -27,7 +27,7 @@ return {
     event = "InsertEnter",
     config = function()
       require("nvim-autopairs").setup({
-        disable_filetype = { "TelescopePrompt", "NvimTree", "mason" },
+        disable_filetype = { "TelescopePrompt" },
       })
     end,
   },
@@ -42,31 +42,31 @@ return {
 
       set({ "n", "x" }, "<M-up>", function()
         mc.lineAddCursor(-1)
-      end)
+      end, { desc = "MC add cursor up" })
       set({ "n", "x" }, "<M-down>", function()
         mc.lineAddCursor(1)
-      end)
+      end, { desc = "MC add cursor down" })
       set({ "n", "x" }, "<leader><M-up>", function()
         mc.lineSkipCursor(-1)
-      end)
+      end, { desc = "MC skip cursor up" })
       set({ "n", "x" }, "<leader><M-down>", function()
         mc.lineSkipCursor(1)
-      end)
+      end, { desc = "MC skip cursor down" })
 
       set({ "n", "x" }, "<leader>n", function()
         mc.matchAddCursor(1)
-      end)
+      end, { desc = "MC add next match" })
       set({ "n", "x" }, "<leader>s", function()
         mc.matchSkipCursor(1)
-      end)
+      end, { desc = "MC skip next match" })
       set({ "n", "x" }, "<leader>N", function()
         mc.matchAddCursor(-1)
-      end)
+      end, { desc = "MC add prev match" })
       set({ "n", "x" }, "<leader>S", function()
         mc.matchSkipCursor(-1)
-      end)
+      end, { desc = "MC skip prev match" })
 
-      set({ "n", "x" }, "<c-q>", mc.toggleCursor)
+      set({ "n", "x" }, "<c-q>", mc.toggleCursor, { desc = "MC toggle cursor" })
 
       mc.addKeymapLayer(function(layer_set)
         layer_set({ "n", "x" }, "<left>", mc.prevCursor)
