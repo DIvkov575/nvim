@@ -104,7 +104,7 @@ return {
         preset = "modern",
       })
       wk.add({
-        { "<leader>t", group = "Telescope" },
+        { "<leader>t", group = "Telescope/Terminal" },
         { "<leader>d", group = "Debug" },
         { "<leader>h", group = "Git Hunk" },
       })
