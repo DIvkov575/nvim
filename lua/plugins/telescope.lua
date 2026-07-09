@@ -41,6 +41,22 @@ return {
         builtin.live_grep({ additional_args = function() return { "--no-ignore" } end })
       end, { desc = "Live Grep (unfiltered)" })
       vim.keymap.set("n", "gd", builtin.lsp_definitions, { desc = "Go to Definition (Telescope)" })
+
+      -- Open an arbitrary file by typing its path (tab-completes files/dirs).
+      vim.keymap.set("n", "<leader>tp", function()
+        local path = vim.fn.input({ prompt = "Open path: ", completion = "file" })
+        if path ~= "" then
+          vim.cmd.edit(vim.fn.fnameescape(vim.fn.expand(path)))
+        end
+      end, { desc = "Open File by Path" })
+
+      -- Find files under an arbitrary directory you type (tab-completes dirs).
+      vim.keymap.set("n", "<leader>tP", function()
+        local dir = vim.fn.input({ prompt = "Find files in dir: ", completion = "dir" })
+        if dir ~= "" then
+          builtin.find_files({ cwd = vim.fn.expand(dir) })
+        end
+      end, { desc = "Find Files in Dir" })
     end,
   },
 }
